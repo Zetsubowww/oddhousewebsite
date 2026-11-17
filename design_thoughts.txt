@@ -127,3 +127,5 @@ DESIGN IDEAS 4:
     3.1. I like the design choice that you made with the hand cursor, however, when hovering over a clickable element, the
     thumb of the hand shows out to be weird. Try referencing the hand cursor image that I attached for the shape of the hand.
 4. Add a new nav item named "The Works" after "The Team", place temporary content for now.
+
+Test
