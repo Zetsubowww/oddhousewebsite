@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@900&family=Instrument+Sans:wght@400;600&family=Geist+Mono:wght@400&display=swap">
 <style>
-  /* Layout: the brand-guidelines cover as a page. Two half-lidded eyes in the dark, the headline
+  /* Layout: the brand-guidelines cover as a page. A full-screen teaser video, the headline
      bottom-left, a hairline, then a dry note on the left and mono small print on the right.
      Two colours only (ink, paper); no tints, no gradients. Ink is the default, paper is the reverse. */
   :root {
@@ -79,14 +79,10 @@
     min-width: 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-end;
     gap: 2.5rem;
     padding-block: 2rem 2.5rem;
   }
-  .eyes { flex: 1; display: flex; align-items: center; justify-content: center; }
-  .eyes svg { display: block; width: clamp(260px, 54vw, 880px); max-width: 100%; height: auto; overflow: visible; }
-  .eyes .lens { fill: var(--fg); }
-  .eyes .iris { fill: var(--bg); }
 
   h1 {
     margin: 0;
@@ -120,10 +116,53 @@
 </style>
 <style>
   :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+
+  /* Teaser video: a muted full-screen loop behind the page. It fades in once it is actually playing.
+     If the file is missing or autoplay is blocked, the page shows the plain ink background.
+     .video-on: a video is expected (set at once by script, removed if it fails). .has-video: it is playing. */
+  .teaser-video {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease;
+  }
+  /* Vignette: darkens the screen edges and the areas behind the header, headline and footer,
+     so the text reads as raised above the footage. (The brand guidelines avoid gradients; this is a deliberate exception.) */
+  .vignette {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    background:
+      linear-gradient(to bottom, rgba(20, 20, 19, 0.7) 0%, rgba(20, 20, 19, 0) 20%),
+      linear-gradient(to top, rgba(20, 20, 19, 0.9) 0%, rgba(20, 20, 19, 0.62) 35%, rgba(20, 20, 19, 0.3) 56%, rgba(20, 20, 19, 0) 72%),
+      linear-gradient(to right, rgba(20, 20, 19, 0.62) 0%, rgba(20, 20, 19, 0.3) 40%, rgba(20, 20, 19, 0) 62%),
+      radial-gradient(ellipse 110% 95% at 60% 40%, rgba(20, 20, 19, 0) 45%, rgba(20, 20, 19, 0.7) 100%);
+  }
+  .page { position: relative; z-index: 2; }
+  body::after { z-index: 3; }
+  /* With a video the page keeps the ink look: paper text over footage, whatever the theme. */
+  :root.video-on { --bg: var(--ink); --fg: var(--paper); --grain: 0.06; color-scheme: dark; }
+  .has-video .teaser-video, .has-video .vignette { opacity: 1; }
+  /* Lift the text off the footage with a soft ink shadow. */
+  .has-video .bar, .has-video h1, .has-video .foot {
+    text-shadow: 0 2px 6px rgba(20, 20, 19, 0.5), 0 0 34px rgba(20, 20, 19, 0.6);
+  }
+  .has-video .foot { box-shadow: 0 -1px 10px -6px rgba(20, 20, 19, 0.8); }
 </style>
 </head>
 <body>
 
+<!-- Teaser video. Path is relative to this index.html; if the file moves, update this one path. -->
+<video class="teaser-video" id="teaser" src="media/videos/odd-house-teaser-v4-16x9.mp4" muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1"></video>
+<div class="vignette" aria-hidden="true"></div>
 
 <div class="page">
   <header class="bar">
@@ -132,20 +171,6 @@
   </header>
 
   <main>
-    <div class="eyes">
-      <svg id="eyes" viewBox="0 0 1083 170" role="img" aria-label="Two sleepy eyes that follow your cursor">
-        <defs>
-          <path id="lens" d="M24 0H446Q470 0 470 24C470 110 355 166 235 166C115 166 0 110 0 24Q0 0 24 0Z"/>
-          <clipPath id="lensClip"><use href="#lens"/></clipPath>
-        </defs>
-        <g transform="translate(0 0)">
-          <g id="eyeL"><use class="lens" href="#lens"/><g clip-path="url(#lensClip)"><circle id="irisL" class="iris" cx="235" cy="-12" r="80"/></g></g>
-        </g>
-        <g transform="translate(613 0)">
-          <g id="eyeR"><use class="lens" href="#lens"/><g clip-path="url(#lensClip)"><circle id="irisR" class="iris" cx="235" cy="-12" r="80"/></g></g>
-        </g>
-      </svg>
-    </div>
     <h1><span>the house is</span><span>still in</span><span>construction.</span></h1>
   </main>
 
@@ -161,68 +186,22 @@
 </div>
 
 <script>
+// Teaser video: always muted. If it can't play, the page keeps its plain background.
 (function () {
-  var $ = function (id) { return document.getElementById(id); };
-  var eyes = $('eyes'), eyeL = $('eyeL'), eyeR = $('eyeR'), irisL = $('irisL'), irisR = $('irisR');
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
-  function smooth(t) { return t * t * (3 - 2 * t); }
-
-  var MAXX = 48, MAXY = 10;
-  var look = { x: 0, y: 0 }, aim = { x: 0, y: 0 };
-  var lastMove = -1e9, wanderAt = 0, blinkAt = 0, blinkT = -1, t0 = 0;
-
-  function setLids(s) {
-    var tr = 'scale(1 ' + Math.max(0.02, s).toFixed(3) + ')';
-    eyeL.setAttribute('transform', tr);
-    eyeR.setAttribute('transform', tr);
-  }
-  function setIris(x, y) {
-    var cx = (235 + x).toFixed(1), cy = (-12 + y).toFixed(1);
-    irisL.setAttribute('cx', cx); irisL.setAttribute('cy', cy);
-    irisR.setAttribute('cx', cx); irisR.setAttribute('cy', cy);
-  }
-
-  if (reduce) { setLids(1); setIris(0, 0); return; }
-
-  setLids(0);                     // the eyes start shut and open once, slowly
-  window.addEventListener('pointermove', function (e) {
-    lastMove = performance.now();
-    var r = eyes.getBoundingClientRect();
-    var dx = (e.clientX - (r.left + r.width / 2)) / (window.innerWidth * 0.4);
-    var dy = (e.clientY - (r.top + r.height / 2)) / (window.innerHeight * 0.4);
-    aim.x = clamp(dx, -1, 1) * MAXX;
-    aim.y = clamp(dy, -1, 1) * MAXY;
-  }, { passive: true });
-
-  function frame(t) {
-    if (!t0) { t0 = t + 500; blinkAt = t + 3200; }
-    var moving = t - lastMove < 1500;
-    if (!moving && t > wanderAt) {
-      var a = Math.random() * 6.283, m = Math.sqrt(Math.random());
-      aim.x = Math.cos(a) * m * MAXX;
-      aim.y = Math.sin(a) * m * MAXY;
-      wanderAt = t + 900 + Math.random() * 1800;
-    }
-    var k = moving ? 0.2 : 0.06;
-    look.x += (aim.x - look.x) * k;
-    look.y += (aim.y - look.y) * k;
-    setIris(look.x, look.y);
-
-    var open = smooth(clamp((t - t0) / 1100, 0, 1));
-    var blink = 1;
-    if (open >= 1) {
-      if (blinkT < 0 && t > blinkAt) blinkT = t;
-      if (blinkT >= 0) {
-        var p = (t - blinkT) / 180;
-        if (p >= 1) { blinkT = -1; blinkAt = t + 2500 + Math.random() * 3500; }
-        else blink = 1 - 0.95 * Math.sin(p * Math.PI);
-      }
-    }
-    setLids(open * blink);
-    requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
+  var v = document.getElementById('teaser');
+  if (!v) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { v.remove(); return; }
+  var root = document.documentElement;
+  root.classList.add('video-on');
+  function fail() { root.classList.remove('has-video', 'video-on'); v.remove(); }
+  v.muted = true;
+  v.defaultMuted = true;
+  v.volume = 0;
+  v.addEventListener('volumechange', function () { if (!v.muted) v.muted = true; });
+  v.addEventListener('playing', function () { root.classList.add('has-video'); });
+  v.addEventListener('error', fail);
+  var p = v.play();
+  if (p && p.catch) p.catch(fail);
 })();
 </script>
 
