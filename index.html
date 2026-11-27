@@ -3,207 +3,661 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Odd House is a creative marketing agency. The house is still in construction. Back soon.">
-<meta name="theme-color" content="#141413">
-<link rel="icon" href="media\images\oddhouse-icon-framed.svg">
-<title>Odd House</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@900&family=Instrument+Sans:wght@400;600&family=Geist+Mono:wght@400&display=swap">
-<style>
-  /* Layout: the brand-guidelines cover as a page. A full-screen teaser video, the headline
-     bottom-left, a hairline, then a dry note on the left and mono small print on the right.
-     Two colours only (ink, paper); no tints, no gradients. Ink is the default, paper is the reverse. */
-  :root {
-    --ink: #141413;
-    --paper: #FFFBEF;
-    --bg: var(--ink);
-    --fg: var(--paper);
-    --grain: 0.06;
-    --display: "Outfit", "Helvetica Neue", Helvetica, Arial, sans-serif;   /* stand-in for Polymath Display Black */
-    --body: "Instrument Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-    color-scheme: dark;
-    box-sizing: border-box;
-  }
-  @media (prefers-color-scheme: light) {
-    :root:not([data-theme="dark"]) { --bg: var(--paper); --fg: var(--ink); --grain: 0; color-scheme: light; }
-  }
-  :root[data-theme="light"] { --bg: var(--paper); --fg: var(--ink); --grain: 0; color-scheme: light; }
-  *, *::before, *::after { box-sizing: inherit; }
+<title>Odd House Draft</title>
+<meta name="description" content="Odd House is a creative marketing agency in Metro Manila. We produce social content and design brand identities for brands that would rather be remembered than liked by everyone.">
+  <!-- BEFORE LAUNCH: confirm the domain in the three URLs below. -->
+  <link rel="canonical" href="https://oddhouse.media/">
+  <meta property="og:url" content="https://oddhouse.media/">
+  <meta property="og:image" content="https://oddhouse.media/assets/brand/og.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Odd House">
+  <meta property="og:title" content="Odd House | Content and design for brands">
+  <meta property="og:description" content="A creative marketing agency in Manila. Social content and brand identities, odd on purpose.">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#141413">
+  <meta name="color-scheme" content="dark light">
 
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--fg);
-    font-family: var(--body);
-    -webkit-font-smoothing: antialiased;
-  }
-  /* A very faint ink grain, as on the dark pages of the guidelines. */
-  body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    opacity: var(--grain);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
+  <!-- The "js" flag and the intro flag are set before first paint so nothing flashes. -->
+  <script>
+    (function (d) {
+      // These lived on <html> in the original site: the artifact supplies <html>, so they are set here.
+      d.setAttribute('lang', 'en');
+      d.setAttribute('data-lights', 'off');   // the lights switch is gone in this draft
+      d.classList.add('js');
+      /* INTRO START */
+      // The 2-second character intro: once per browser session, never on a deep link, never with reduced motion.
+      try {
+        var calm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!calm && !sessionStorage.getItem('oh-intro-seen') && !location.hash) d.classList.add('is-intro');
+      } catch (e) {}
+      /* INTRO END */
+    })(document.documentElement);
+  </script>
 
-  .page {
-    min-height: calc(100svh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    padding-block: 1.75rem;
-    padding-left: max(16px, 5vw, env(safe-area-inset-left, 0px));
-    padding-right: max(16px, 5vw, env(safe-area-inset-right, 0px));
-  }
+  <!-- TYPE
+       Headlines are Polymath Display (Adobe Fonts). Create a web project at fonts.adobe.com
+       with Polymath Display Black, Bold and Semibold, then paste its <link> on the next line.
+       Until then the site uses Outfit, the closest open-licence match.
+  -->
+  <!-- <link rel="stylesheet" href="https://use.typekit.net/YOUR-KIT-ID.css"> -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&family=Outfit:wght@600;700;900&display=swap" rel="stylesheet">
 
-  .label {
-    font-family: var(--mono);
-    font-size: 0.75rem;
-    line-height: 1.6;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-  }
+  <link rel="stylesheet" href="assets/css/main.css">
+  <!-- INTRO START --><link rel="stylesheet" href="assets/css/intro.css"><!-- INTRO END -->
 
-  .bar { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
-  .word {
-    font-family: var(--display);
-    font-weight: 900;
-    font-size: 1.7rem;
-    line-height: 1;
-    letter-spacing: -0.04em;
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Odd House",
+    "description": "Creative marketing agency producing social content and brand design.",
+    "slogan": "odd on purpose.",
+    "url": "https://oddhouse.media/",
+    "logo": "https://oddhouse.media/assets/brand/icon-512.png",
+    "image": "https://oddhouse.media/assets/brand/og.png",
+    "email": "hello@oddhouse.media",
+    "address": { "@type": "PostalAddress", "addressLocality": "Metro Manila", "addressCountry": "PH" },
+    "areaServed": "Worldwide",
+    "knowsAbout": ["Brand identity", "Social media content", "Short-form video", "Campaign design", "Motion graphics"]
   }
+  </script>
 
-  main {
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    gap: 2.5rem;
-    padding-block: 2rem 2.5rem;
-  }
-
-  h1 {
-    margin: 0;
-    font-family: var(--display);
-    font-weight: 900;
-    font-size: clamp(2.4rem, 9.2vw, 9rem);
-    line-height: 0.92;
-    letter-spacing: -0.03em;
-  }
-  h1 span { display: block; }
-
-  .foot {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 1.5rem 2rem;
-    align-items: end;
-    border-top: 1px solid var(--fg);
-    padding-top: 1.25rem;
-  }
-  .foot > * { min-width: 0; }
-  .note { margin: 0 0 0.6rem; max-width: 30ch; font-size: 1.25rem; line-height: 1.4; }
-  .follow { font-weight: 600; color: var(--fg); text-underline-offset: 4px; }
-  .follow:focus-visible { outline: 2px solid var(--fg); outline-offset: 4px; }
-  .small { text-align: right; }
-
-  @media (max-width: 640px) {
-    .foot { grid-template-columns: 1fr; }
-    .small { text-align: left; }
-    .word { font-size: 1.45rem; }
-  }
-</style>
-<style>
-  :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
-
-  /* Teaser video: a muted full-screen loop behind the page. It fades in once it is actually playing.
-     If the file is missing or autoplay is blocked, the page shows the plain ink background.
-     .video-on: a video is expected (set at once by script, removed if it fails). .has-video: it is playing. */
-  .teaser-video {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.6s ease;
-  }
-  /* Vignette: darkens the screen edges and the areas behind the header, headline and footer,
-     so the text reads as raised above the footage. (The brand guidelines avoid gradients; this is a deliberate exception.) */
-  .vignette {
-    position: fixed;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.6s ease;
-    background:
-      linear-gradient(to bottom, rgba(20, 20, 19, 0.7) 0%, rgba(20, 20, 19, 0) 20%),
-      linear-gradient(to top, rgba(20, 20, 19, 0.9) 0%, rgba(20, 20, 19, 0.62) 35%, rgba(20, 20, 19, 0.3) 56%, rgba(20, 20, 19, 0) 72%),
-      linear-gradient(to right, rgba(20, 20, 19, 0.62) 0%, rgba(20, 20, 19, 0.3) 40%, rgba(20, 20, 19, 0) 62%),
-      radial-gradient(ellipse 110% 95% at 60% 40%, rgba(20, 20, 19, 0) 45%, rgba(20, 20, 19, 0.7) 100%);
-  }
-  .page { position: relative; z-index: 2; }
-  body::after { z-index: 3; }
-  /* With a video the page keeps the ink look: paper text over footage, whatever the theme. */
-  :root.video-on { --bg: var(--ink); --fg: var(--paper); --grain: 0.06; color-scheme: dark; }
-  .has-video .teaser-video, .has-video .vignette { opacity: 1; }
-  /* Lift the text off the footage with a soft ink shadow. */
-  .has-video .bar, .has-video h1, .has-video .foot {
-    text-shadow: 0 2px 6px rgba(20, 20, 19, 0.5), 0 0 34px rgba(20, 20, 19, 0.6);
-  }
-  .has-video .foot { box-shadow: 0 -1px 10px -6px rgba(20, 20, 19, 0.8); }
-</style>
 </head>
 <body>
+<a class="skip" href="#main">skip to content</a>
 
-<!-- Teaser video. Path is relative to this index.html; if the file moves, update this one path. -->
-<video class="teaser-video" id="teaser" src="media/videos/odd-house-teaser-v4-16x9.mp4" muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1"></video>
-<div class="vignette" aria-hidden="true"></div>
+  <!-- Shared eye shapes. Every pair of eyes on the page reuses these. -->
+  <svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <path id="eye-bowl" d="M177.83 139.74C154.23 137.7 129.29 132.42 109.56 125.31C100.04 121.88 95.8 120.06 85.63 115.05C75.44 110.04 72.95 108.62 63.68 102.54C33.28 82.63 11.74 55.22 3.92 26.48C0 12.08 5 2.41 17.4.49C19.58.15 42.56 0 75.35.1L324.95.1C357.74 0 380.72.15 382.9.49C394.77 2.33 400 11.48 396.65 24.51C394.1 34.44 390 44.15 384.08 54.3C373.64 72.22 353.25 92.2 331.93 105.4C324.31 110.11 324.54 109.99 315.56 114.5C290.49 127.1 263.87 134.78 230.99 138.9C222.39 139.99 187.08 140.54 177.83 139.74Z"/>
+      <path id="eye-pupil" d="M118-80L118 .24C126 .3 130.03.42 131.73 1.1C137.76 3.54 140.82 7.27 143.2 15.07C147.68 29.76 155.9 40.9 168.15 48.87C176.28 54.16 183.83 56.81 194.49 58.14C206.71 59.66 221.48 55.92 232.45 48.54C244.12 40.69 251.74 30.54 256.06 17.1C258.51 9.48 260.62 5.92 264.08 3.57C267 1.6 270 .5 282 .2L282-80Z"/>
+      <clipPath id="eye-clip"><use href="#eye-bowl"/></clipPath>
+    </defs>
+  </svg>
 
-<div class="page">
-  <header class="bar">
-    <span class="word">odd house</span>
-    <span class="label">Under construction</span>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- INTRO START -->
+  <!-- ============================================================ INTRO
+       Two seconds with one character and its line: the live house or one of its moods, picked fresh each visit. Tap, click, Escape or Enter skips it. See assets/js/intro.js. -->
+  <div class="intro" data-intro role="button" tabindex="0" aria-label="Odd House intro. Press Enter to skip.">
+    <div class="intro__mid">
+      <div class="intro__house" data-intro-house>
+        <svg viewBox="0 0 240 248.94" aria-hidden="true" data-intro-svg data-mood="idle">
+          <defs><clipPath id="ge-clip"><path d="M-45.10 -0.57C-45.06 -2.22 -44.16 -3.99 -43.25 -5.45C-42.35 -6.91 -40.97 -8.16 -39.66 -9.34C-38.36 -10.52 -36.92 -11.59 -35.44 -12.54C-33.96 -13.49 -32.37 -14.31 -30.77 -15.06C-29.17 -15.80 -27.51 -16.43 -25.84 -17.00C-24.17 -17.58 -22.46 -18.05 -20.75 -18.50C-19.04 -18.94 -17.31 -19.32 -15.58 -19.67C-13.85 -20.02 -12.12 -20.43 -10.36 -20.63C-8.61 -20.83 -6.84 -20.82 -5.08 -20.86C-3.31 -20.90 -1.54 -20.88 0.23 -20.89C1.99 -20.90 3.77 -21.00 5.53 -20.92C7.29 -20.83 9.05 -20.61 10.80 -20.38C12.56 -20.16 14.31 -19.89 16.04 -19.56C17.78 -19.23 19.51 -18.86 21.22 -18.41C22.93 -17.96 24.63 -17.45 26.29 -16.84C27.94 -16.24 29.59 -15.56 31.17 -14.78C32.75 -14.00 34.31 -13.13 35.78 -12.16C37.25 -11.19 38.71 -10.15 40.00 -8.95C41.28 -7.76 42.64 -6.47 43.49 -4.98C44.34 -3.49 45.13 -1.65 45.10 -0.01C45.06 1.64 44.19 3.43 43.28 4.88C42.36 6.33 40.95 7.55 39.61 8.70C38.28 9.85 36.78 10.83 35.29 11.77C33.80 12.71 32.25 13.58 30.66 14.36C29.08 15.13 27.45 15.83 25.78 16.42C24.12 17.01 22.41 17.47 20.69 17.89C18.98 18.31 17.23 18.62 15.49 18.95C13.76 19.27 12.01 19.53 10.26 19.82C8.52 20.11 6.78 20.53 5.03 20.68C3.28 20.84 1.51 20.77 -0.25 20.74C-2.02 20.71 -3.79 20.66 -5.55 20.50C-7.31 20.34 -9.06 20.05 -10.81 19.80C-12.56 19.56 -14.32 19.35 -16.06 19.03C-17.80 18.72 -19.53 18.36 -21.24 17.90C-22.94 17.44 -24.63 16.90 -26.28 16.27C-27.93 15.64 -29.56 14.94 -31.14 14.15C-32.72 13.36 -34.27 12.49 -35.75 11.52C-37.22 10.56 -38.70 9.54 -39.99 8.35C-41.29 7.17 -42.66 5.89 -43.51 4.40C-44.36 2.92 -45.15 1.07 -45.10 -0.57Z"/></clipPath></defs>
+          <use class="gate__shape" href="assets/brand/sprite.svg#house-solid" width="240" height="248.94"/>
+          <g data-geye transform="translate(64.8 176.2)">
+            <g class="ge__lid"><path class="ge__white" d="M-45.10 -0.57C-45.06 -2.22 -44.16 -3.99 -43.25 -5.45C-42.35 -6.91 -40.97 -8.16 -39.66 -9.34C-38.36 -10.52 -36.92 -11.59 -35.44 -12.54C-33.96 -13.49 -32.37 -14.31 -30.77 -15.06C-29.17 -15.80 -27.51 -16.43 -25.84 -17.00C-24.17 -17.58 -22.46 -18.05 -20.75 -18.50C-19.04 -18.94 -17.31 -19.32 -15.58 -19.67C-13.85 -20.02 -12.12 -20.43 -10.36 -20.63C-8.61 -20.83 -6.84 -20.82 -5.08 -20.86C-3.31 -20.90 -1.54 -20.88 0.23 -20.89C1.99 -20.90 3.77 -21.00 5.53 -20.92C7.29 -20.83 9.05 -20.61 10.80 -20.38C12.56 -20.16 14.31 -19.89 16.04 -19.56C17.78 -19.23 19.51 -18.86 21.22 -18.41C22.93 -17.96 24.63 -17.45 26.29 -16.84C27.94 -16.24 29.59 -15.56 31.17 -14.78C32.75 -14.00 34.31 -13.13 35.78 -12.16C37.25 -11.19 38.71 -10.15 40.00 -8.95C41.28 -7.76 42.64 -6.47 43.49 -4.98C44.34 -3.49 45.13 -1.65 45.10 -0.01C45.06 1.64 44.19 3.43 43.28 4.88C42.36 6.33 40.95 7.55 39.61 8.70C38.28 9.85 36.78 10.83 35.29 11.77C33.80 12.71 32.25 13.58 30.66 14.36C29.08 15.13 27.45 15.83 25.78 16.42C24.12 17.01 22.41 17.47 20.69 17.89C18.98 18.31 17.23 18.62 15.49 18.95C13.76 19.27 12.01 19.53 10.26 19.82C8.52 20.11 6.78 20.53 5.03 20.68C3.28 20.84 1.51 20.77 -0.25 20.74C-2.02 20.71 -3.79 20.66 -5.55 20.50C-7.31 20.34 -9.06 20.05 -10.81 19.80C-12.56 19.56 -14.32 19.35 -16.06 19.03C-17.80 18.72 -19.53 18.36 -21.24 17.90C-22.94 17.44 -24.63 16.90 -26.28 16.27C-27.93 15.64 -29.56 14.94 -31.14 14.15C-32.72 13.36 -34.27 12.49 -35.75 11.52C-37.22 10.56 -38.70 9.54 -39.99 8.35C-41.29 7.17 -42.66 5.89 -43.51 4.40C-44.36 2.92 -45.15 1.07 -45.10 -0.57Z"/><g clip-path="url(#ge-clip)"><ellipse class="ge__pupil" rx="17.2" ry="20.9"/></g></g>
+            <path class="ge__happy" d="M-26 9Q0 -19 26 9"/>
+          </g>
+          <g data-geye transform="translate(174.4 176.2)">
+            <g class="ge__lid"><path class="ge__white" d="M-45.10 -0.57C-45.06 -2.22 -44.16 -3.99 -43.25 -5.45C-42.35 -6.91 -40.97 -8.16 -39.66 -9.34C-38.36 -10.52 -36.92 -11.59 -35.44 -12.54C-33.96 -13.49 -32.37 -14.31 -30.77 -15.06C-29.17 -15.80 -27.51 -16.43 -25.84 -17.00C-24.17 -17.58 -22.46 -18.05 -20.75 -18.50C-19.04 -18.94 -17.31 -19.32 -15.58 -19.67C-13.85 -20.02 -12.12 -20.43 -10.36 -20.63C-8.61 -20.83 -6.84 -20.82 -5.08 -20.86C-3.31 -20.90 -1.54 -20.88 0.23 -20.89C1.99 -20.90 3.77 -21.00 5.53 -20.92C7.29 -20.83 9.05 -20.61 10.80 -20.38C12.56 -20.16 14.31 -19.89 16.04 -19.56C17.78 -19.23 19.51 -18.86 21.22 -18.41C22.93 -17.96 24.63 -17.45 26.29 -16.84C27.94 -16.24 29.59 -15.56 31.17 -14.78C32.75 -14.00 34.31 -13.13 35.78 -12.16C37.25 -11.19 38.71 -10.15 40.00 -8.95C41.28 -7.76 42.64 -6.47 43.49 -4.98C44.34 -3.49 45.13 -1.65 45.10 -0.01C45.06 1.64 44.19 3.43 43.28 4.88C42.36 6.33 40.95 7.55 39.61 8.70C38.28 9.85 36.78 10.83 35.29 11.77C33.80 12.71 32.25 13.58 30.66 14.36C29.08 15.13 27.45 15.83 25.78 16.42C24.12 17.01 22.41 17.47 20.69 17.89C18.98 18.31 17.23 18.62 15.49 18.95C13.76 19.27 12.01 19.53 10.26 19.82C8.52 20.11 6.78 20.53 5.03 20.68C3.28 20.84 1.51 20.77 -0.25 20.74C-2.02 20.71 -3.79 20.66 -5.55 20.50C-7.31 20.34 -9.06 20.05 -10.81 19.80C-12.56 19.56 -14.32 19.35 -16.06 19.03C-17.80 18.72 -19.53 18.36 -21.24 17.90C-22.94 17.44 -24.63 16.90 -26.28 16.27C-27.93 15.64 -29.56 14.94 -31.14 14.15C-32.72 13.36 -34.27 12.49 -35.75 11.52C-37.22 10.56 -38.70 9.54 -39.99 8.35C-41.29 7.17 -42.66 5.89 -43.51 4.40C-44.36 2.92 -45.15 1.07 -45.10 -0.57Z"/><g clip-path="url(#ge-clip)"><ellipse class="ge__pupil" rx="17.2" ry="20.9"/></g></g>
+            <path class="ge__happy" d="M-26 9Q0 -19 26 9"/>
+          </g>
+        </svg>
+        <div class="intro__mood" aria-hidden="true" hidden data-intro-mood></div>
+      </div>
+      <p class="intro__hint display" aria-live="polite" data-intro-hint>that’s odd.</p>
+    </div>
+  </div>
+  <!-- INTRO END -->
+
+  <!-- ============================================================ HEADER
+       The logo on its own, the nav sticker and the book-a-call sticker. -->
+  <header class="top" data-top>
+    <a class="logo stick--logo" href="#house" aria-label="Odd House, back to top">
+      <svg class="logo__house" viewBox="0 0 240 248.94" aria-hidden="true"><use href="assets/brand/sprite.svg#house"/></svg>
+      <svg class="logo__word" viewBox="0 0 600 100.11" aria-hidden="true"><use href="assets/brand/sprite.svg#wordmark"/></svg>
+    </a>
+
+    <nav class="stick stick--nav" aria-label="Primary">
+      <a href="#house">the house</a>
+      <a href="#work">the works</a>
+      <a href="#make">the service</a>
+      <a href="#how">the process</a>
+    </nav>
+
+    <div class="top__right">
+      <a class="stick stick--cta" href="#contact">book a call.</a>
+      <button class="stick stick--menu" type="button" data-menu-toggle aria-expanded="false" aria-controls="menu">
+        <span data-menu-label>menu</span>
+      </button>
+    </div>
   </header>
 
-  <main>
-    <h1><span>the house is</span><span>still in</span><span>construction.</span></h1>
+  <!-- Mobile menu -->
+  <div class="menu" id="menu" data-menu hidden>
+    <nav class="menu__nav" aria-label="Menu">
+      <a href="#house"><span class="label">01</span>the house.</a>
+      <a href="#work"><span class="label">02</span>the works.</a>
+      <a href="#make"><span class="label">03</span>the service.</a>
+      <a href="#how"><span class="label">04</span>the process.</a>
+      <a href="#contact"><span class="label">05</span>book a call.</a>
+    </nav>
+    <p class="menu__foot label">odd house <span>creative marketing agency</span> <span>metro manila, ph</span></p>
+  </div>
+
+  <main id="main">
+
+    <!-- ============================================================ 01 THE HOUSE
+         The first screen. The house stands on the ink ground on the right and looks back;
+         the line sits beside it. Below, on the ground: what we make, the three facts, two buttons. -->
+    <section class="home" id="house" data-page="the house">
+      <div class="home__top" data-tone="paper">
+        <div class="home__row wrap">
+          <h1 class="display home__title home__title--wide" data-split>your brand, <br>remembered.</h1>
+          <div class="home__house" aria-hidden="true">
+            <svg viewBox="0 0 1000 876" data-eyes="peek">
+          <use class="peek__house" href="assets/brand/sprite.svg#house-solid" width="1000" height="1037.25"/>
+          <g transform="translate(98.5 691) scale(.8745)">
+            <g class="eye"><g class="eye__lid"><use class="eye__white" href="#eye-bowl"/><g clip-path="url(#eye-clip)"><use class="eye__pupil" href="#eye-pupil"/></g></g></g>
+            <g class="eye" transform="translate(516.83 0)"><g class="eye__lid"><use class="eye__white" href="#eye-bowl"/><g clip-path="url(#eye-clip)"><use class="eye__pupil" href="#eye-pupil"/></g></g></g>
+          </g>
+        </svg>
+          </div>
+        </div>
+      </div>
+      <div class="home__base" data-tone="ink">
+        <div class="home__grid wrap">
+          <!-- On narrow screens the headline sits here, on the ground, and the cream area holds only the house. -->
+          <h1 class="display home__title home__title--narrow" data-split>your brand, <br>remembered.</h1>
+          <p class="home__lede" data-reveal>odd house makes identities, campaigns and content with a quiet kind of weird.</p>
+          <div class="home__side">
+            <dl class="facts home__facts">
+              <div data-reveal><dt class="label">what we do</dt><dd>Identity, campaigns, social content and motion.</dd></div>
+              <div data-reveal><dt class="label">how we sound</dt><dd>Dry, curious, unbothered. Never loud.</dd></div>
+              <div data-reveal><dt class="label">who it’s for</dt><dd>Brands that want to be remembered, not liked by everyone.</dd></div>
+            </dl>
+            <div class="home__cta" data-reveal>
+              <a class="btn" href="#contact" data-book><span>book a call.</span></a>
+              <a class="btn" href="#work"><span>the works.</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- The work strip: right after the first screen. -->
+    <div class="strip" data-tone="ink">
+      <!-- The strip that peeks into the first screen. Swap these frames for client work
+           (stills, or <video muted loop playsinline> inside .reel__frame). Keep 6 to 9 frames. -->
+      <div class="reel" data-reel aria-label="Previews of recent work">
+        <ul class="reel__track" data-reel-track>
+          <li class="reel__frame reel__frame--wide">
+            <picture>
+              <source type="image/avif" srcset="assets/img/cards-dark-900.avif">
+              <img src="assets/img/cards-dark-900.jpg" width="900" height="672" alt="Odd House business cards on a dark ribbed surface" fetchpriority="high">
+            </picture>
+            <span class="tag">odd house <b>business cards</b></span>
+          </li>
+          <li class="reel__frame reel__frame--tall">
+            <picture>
+              <source type="image/avif" srcset="assets/img/card-in-hand-600.avif">
+              <img src="assets/img/card-in-hand-600.jpg" width="600" height="771" alt="A hand holding an Odd House business card in a strip of light">
+            </picture>
+            <span class="tag">odd house <b>stationery</b></span>
+          </li>
+          <li class="reel__frame reel__frame--tall">
+            <picture><img src="assets/img/olivae.webp" width="720" height="900" alt="Olivae Bistro Italiano social post: Worth the wait" loading="lazy"></picture>
+            <span class="tag">olivae <b>social</b></span>
+          </li>
+          <li class="reel__frame reel__frame--wide">
+            <picture>
+              <source type="image/avif" srcset="assets/img/stickers-notebook-900.avif">
+              <img src="assets/img/stickers-notebook-900.jpg" width="900" height="604" alt="Two house mascot stickers on a black notebook">
+            </picture>
+            <span class="tag">odd house <b>stickers</b></span>
+          </li>
+          <li class="reel__frame reel__frame--tall">
+            <picture>
+              <source type="image/avif" srcset="assets/img/stickers-street-600.avif">
+              <img src="assets/img/stickers-street-600.jpg" width="600" height="750" alt="House stickers on a street utility box at night">
+            </picture>
+            <span class="tag">odd house <b>after dark</b></span>
+          </li>
+          <li class="reel__frame reel__frame--wide">
+            <picture>
+              <source type="image/avif" srcset="assets/img/guidelines-book-900.avif">
+              <img src="assets/img/guidelines-book-900.jpg" width="900" height="675" alt="The printed Odd House brand guidelines, open on a stone surface" loading="lazy">
+            </picture>
+            <span class="tag">odd house <b>brand guidelines</b></span>
+          </li>
+          <li class="reel__frame reel__frame--tall">
+            <picture><img src="assets/img/detroit-slice.webp" width="720" height="900" alt="The Detroit Slice social post" loading="lazy"></picture>
+            <span class="tag">detroit slice <b>social</b></span>
+          </li>
+          <li class="reel__frame reel__frame--tall">
+            <picture>
+              <source type="image/avif" srcset="assets/img/stickers-laptop-600.avif">
+              <img src="assets/img/stickers-laptop-600.jpg" width="600" height="750" alt="House stickers on a laptop lid" loading="lazy">
+            </picture>
+            <span class="tag">odd house <b>stickers</b></span>
+          </li>
+          <li class="reel__frame reel__frame--wide">
+            <picture>
+              <source type="image/avif" srcset="assets/img/cards-angled-900.avif">
+              <img src="assets/img/cards-angled-900.jpg" width="900" height="507" alt="Front and back of the Odd House business cards, angled in shadow" loading="lazy">
+            </picture>
+            <span class="tag">odd house <b>front and back</b></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ============================================================ 02 THE WORKS -->
+    <section class="work" id="work" data-tone="ink" data-page="the works">
+      <div class="wrap">
+        <header class="sec-head">
+          <p class="sec-head__bar label"><span>odd house <span class="gap">the works</span></span><span>02 / 05</span></p>
+          <h2 class="display sec-head__title" data-split>the works.</h2>
+          <p class="sec-head__note" data-reveal>What we made and who it was for. Tap a project to open it.</p>
+        </header>
+
+        <ol class="cases">
+
+          <!-- CASE (real). Copy this whole <li> for each client project. -->
+          <li class="case case--feature" data-reveal>
+            <button class="case__open" type="button" data-case="odd-house" aria-haspopup="dialog">
+              <span class="frame">
+                <picture>
+                  <img src="assets/img/cards-angled-1800.jpg" srcset="assets/img/cards-angled-900.jpg 900w, assets/img/cards-angled-1800.jpg 1800w" sizes="(min-width: 900px) 92vw, 100vw" width="1800" height="1013" alt="Front and back of the Odd House business cards" loading="lazy">
+                </picture>
+                <span class="tag">in-house</span>
+              </span>
+              <span class="case__info">
+                <span class="case__name display">odd house.</span>
+                <span class="case__facts label">
+                  <span><i>scope</i> identity, mascot, stickers, stationery, guidelines</span>
+                  <span><i>year</i> 2026</span>
+                </span>
+                <span class="case__go label" aria-hidden="true">open project <span>+</span></span>
+              </span>
+            </button>
+          </li>
+
+          <!-- More projects: copy one of the cards below. -->
+          <li class="case" data-reveal>
+            <button class="case__open" type="button" data-case="almost-speedy" aria-haspopup="dialog">
+              <span class="frame">
+                <picture><img src="assets/img/almost-speedy.webp" width="1920" height="1080" alt="Almost Speedy run club wordmark on its signature orange gradient" loading="lazy"></picture>
+                <span class="tag">identity</span>
+              </span>
+              <span class="case__info">
+                <span class="case__name display">almost speedy.</span>
+                <span class="case__facts label">
+                  <span><i>scope</i> run club identity, posters, pacer tags, merch</span>
+                  <span><i>year</i> 2024 and 2025</span>
+                </span>
+                <span class="case__go label" aria-hidden="true">open project <span>+</span></span>
+              </span>
+            </button>
+          </li>
+
+          <li class="case" data-reveal>
+            <button class="case__open" type="button" data-case="detroit-slice" aria-haspopup="dialog">
+              <span class="frame">
+                <picture><img style="object-position:50% 8%" src="assets/img/detroit-slice.webp" width="720" height="900" alt="The Detroit Slice social post: Deep dish? Naaah!" loading="lazy"></picture>
+                <span class="tag">social</span>
+              </span>
+              <span class="case__info">
+                <span class="case__name display">the detroit slice.</span>
+                <span class="case__facts label">
+                  <span><i>scope</i> 40+ social jobs: carousels, stories, paid statics, reels</span>
+                  <span><i>year</i> 2026</span>
+                </span>
+                <span class="case__go label" aria-hidden="true">open project <span>+</span></span>
+              </span>
+            </button>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============================================================ 03 THE SERVICE -->
+    <section class="make" id="make" data-tone="paper" data-page="the service">
+      <div class="wrap">
+        <header class="sec-head">
+          <p class="sec-head__bar label"><span>odd house <span class="gap">the service</span></span><span>03 / 05</span></p>
+          <h2 class="display sec-head__title" data-split>two things. <br>that’s it.</h2>
+          <p class="sec-head__note" data-reveal>We could list twelve services. We would rather be good at two.</p>
+        </header>
+      </div>
+
+      <div class="split" data-split-panels>
+        <article class="split__half" data-tone="ink">
+          <p class="label">a / content</p>
+          <h3 class="display split__word">content.</h3>
+          <p class="split__copy">Short-form video, photography and social posts. Planned, shot and edited by us, ready for you to publish.</p>
+          <dl class="spec">
+            <div><dt>video</dt><dd>reels, tiktoks, shorts</dd></div>
+            <div><dt>shoots</dt><dd>photo and video, on location</dd></div>
+            <div><dt>social</dt><dd>posts, carousels, stories</dd></div>
+            <div><dt>motion</dt><dd>titles, loops, edits</dd></div>
+          </dl>
+        </article>
+
+        <article class="split__half" data-tone="paper">
+          <p class="label">b / design</p>
+          <h3 class="display split__word">design.</h3>
+          <p class="split__copy">Identities, campaign visuals and print. Built as a system, so every post, menu and sticker looks like it came from the same place.</p>
+          <dl class="spec">
+            <div><dt>identity</dt><dd>logos, mascots, systems</dd></div>
+            <div><dt>books</dt><dd>brand guidelines</dd></div>
+            <div><dt>campaign</dt><dd>key visuals, social design</dd></div>
+            <div><dt>print</dt><dd>menus, cards, stickers, packaging</dd></div>
+          </dl>
+        </article>
+      </div>
+
+      <div class="wrap">
+        <p class="make__note" data-reveal><span class="display">that’s the list.</span> We kept it short on purpose. If what you need sits outside it, we will say so on the first call.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================ 04 THE PROCESS -->
+    <section class="how" id="how" data-tone="paper" data-page="the process">
+      <div class="wrap">
+        <header class="sec-head">
+          <p class="sec-head__bar label"><span>odd house <span class="gap">the process</span></span><span>04 / 05</span></p>
+          <h2 class="display sec-head__title" data-split>four steps. <br>no mystery.</h2>
+        </header>
+
+        <ol class="steps" data-route>
+          <li class="step step--brief" data-step="1">
+            <div class="step__art"><svg class="step__svg" viewBox="0 0 240 180" fill="none" aria-hidden="true" focusable="false"><path class="ln thin" pathLength="1" style="--i:0" d="M5 15V5H15M225 5H235V15M235 165V175H225M15 175H5V165"/><path class="ln" pathLength="1" style="--i:1" d="M40 28H138A14 14 0 0 1 152 42V70A14 14 0 0 1 138 84H80L58 102V84H40A14 14 0 0 1 26 70V42A14 14 0 0 1 40 28Z"/><circle class="fl dot d1" style="--i:3" cx="66" cy="56" r="5.5"/><circle class="fl dot d2" style="--i:4" cx="89" cy="56" r="5.5"/><circle class="fl dot d3" style="--i:5" cx="112" cy="56" r="5.5"/><path class="fl" style="--i:7" d="M102 96H200A14 14 0 0 1 214 110V134A14 14 0 0 1 200 148H194L206 164L178 148H102A14 14 0 0 1 88 134V110A14 14 0 0 1 102 96Z"/><path class="ln bgline" pathLength="1" style="--i:9" d="M106 116H194M106 129H166"/></svg></div>
+            <span class="label">01</span>
+            <h3 class="display">the brief.</h3>
+            <p>Tell us what it is for, who it is for and when you need it. One call usually covers it.</p>
+            <span class="step__tag label">usually one call</span>
+          </li>
+          <li class="step step--direction" data-step="2">
+            <div class="step__art"><svg class="step__svg" viewBox="0 0 240 180" fill="none" aria-hidden="true" focusable="false"><path class="ln thin" pathLength="1" style="--i:0" d="M5 15V5H15M225 5H235V15M235 165V175H225M15 175H5V165"/><circle class="fl" style="--i:1" cx="32" cy="90" r="9"/><path class="ln route2" pathLength="1" style="--i:2" d="M41 90H96"/><circle class="ln occ" pathLength="1" style="--i:3" cx="104" cy="90" r="7"/><path class="ln dash rej" style="--i:4" d="M110 86C140 78 140 44 172 44H200"/><path class="ln rej" pathLength="1" style="--i:6" d="M206 38l12 12M218 38l-12 12"/><path class="ln route2" pathLength="1" style="--i:4" d="M110 94C140 102 140 140 172 140H222"/><g class="flag"><path class="ln" pathLength="1" style="--i:6" d="M226 156V110"/><path class="fl" style="--i:7" d="M226 110l-1 0 0 0 19 8-19 8Z"/></g></svg></div>
+            <span class="label">02</span>
+            <h3 class="display">the direction.</h3>
+            <p>References and routes, agreed before anything gets made. No surprises later.</p>
+            <span class="step__tag label">routes first</span>
+          </li>
+          <li class="step step--making" data-step="3">
+            <div class="step__art"><svg class="step__svg" viewBox="0 0 240 180" fill="none" aria-hidden="true" focusable="false"><path class="ln thin" pathLength="1" style="--i:0" d="M5 15V5H15M225 5H235V15M235 165V175H225M15 175H5V165"/><path class="ln thin" pathLength="1" style="--i:1" d="M48 160H192"/><g class="fl" style="--i:2"><g class="bobme"><image href="assets/process/making.svg" x="64" y="24" width="118" height="110.6"/></g></g></svg></div>
+            <span class="label">03</span>
+            <h3 class="display">the making.</h3>
+            <p>We shoot, design and edit. You see it in rounds, not all at once at the end.</p>
+            <span class="step__tag label">in rounds</span>
+          </li>
+          <li class="step step--handover" data-step="4">
+            <div class="step__art"><svg class="step__svg" viewBox="0 0 240 180" fill="none" aria-hidden="true" focusable="false"><path class="ln thin" pathLength="1" style="--i:0" d="M5 15V5H15M225 5H235V15M235 165V175H225M15 175H5V165"/><path class="ln thin" pathLength="1" style="--i:1" d="M78 162H162"/><g class="fl" style="--i:2"><g class="shake"><path class="ln occ" pathLength="1" style="--i:1" d="M8 82H52V124H8Z"/><path class="ln occ" pathLength="1" style="--i:1" d="M232 78H188V120H232Z"/><path class="ln thin" pathLength="1" style="--i:2" d="M18 86V120M222 82V116"/><circle class="ln occ" pathLength="1" style="--i:3" cx="34" cy="103" r="3.6"/><circle class="ln occ" pathLength="1" style="--i:3" cx="206" cy="99" r="3.6"/><path class="cuff" d="M50 79H63V127H50Z"/><path class="cuff" d="M190 75H177V123H190Z"/><path class="hand" d="M62 88C80 83 98 83 112 87L138 93C150 96 150 110 137 111L117 113C126 116 127 126 116 128C96 130 78 128 62 123Z"/><path class="hdetail" d="M80 96C84 104 84 114 80 121"/><path class="hand" d="M178 83C162 79 146 79 132 83C117 87 107 96 107 105C107 114 117 120 132 121L178 121Z"/><path class="hdetail" d="M121 91C114 98 114 110 121 117M134 86C127 95 127 110 134 119M147 84C141 94 141 110 147 120"/><path class="hand" d="M152 82C148 69 132 64 119 70C110 74 112 85 123 87Z"/><path class="hand" d="M90 89C92 74 108 66 123 70C134 73 136 85 125 89C116 92 102 93 90 89Z"/><path class="hdetail" d="M117 75C123 76 128 80 128 85M100 82C104 84 110 84 114 82"/></g></g><g class="sparks"><path class="ln" d="M120 48V34M96 54l-9-9M144 54l9-9M80 66l-11-4M160 66l11-4"/></g></svg></div>
+            <span class="label">04</span>
+            <h3 class="display">the handover.</h3>
+            <p>Final files, organised and ready to post or print. Then we do it again, if you like.</p>
+            <span class="step__tag label">final files</span>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+
+    <!-- ============================================================ 05 BOOK A CALL -->
+    <section class="contact" id="contact" data-tone="paper" data-page="book a call">
+      <div class="wrap">
+        <header class="sec-head">
+          <p class="sec-head__bar label"><span>odd house <span class="gap">book a call</span></span><span>05 / 05</span></p>
+          <h2 class="display sec-head__title" data-split>tell us what <br>you need made.</h2>
+        </header>
+
+        <div class="contact__grid">
+          <div class="brief" data-brief>
+            <p class="label" id="brief-label">i need</p>
+            <div class="chips" role="group" aria-labelledby="brief-label">
+              <button type="button" class="chip" aria-pressed="false">reels</button>
+              <button type="button" class="chip" aria-pressed="false">photos</button>
+              <button type="button" class="chip" aria-pressed="false">social posts</button>
+              <button type="button" class="chip" aria-pressed="false">a brand identity</button>
+              <button type="button" class="chip" aria-pressed="false">a campaign</button>
+              <button type="button" class="chip" aria-pressed="false">print</button>
+              <button type="button" class="chip" aria-pressed="false">not sure yet</button>
+            </div>
+            <p class="brief__copy">Book a call or send an email. Tell us the brand, the deadline and what you need. We will tell you honestly if we are the right house for it.</p>
+            <div class="brief__cta">
+              <a class="btn btn--big" href="mailto:hello@oddhouse.media?subject=Book%20a%20call" data-book data-brief-book><span>book a call.</span></a>
+              <a class="link" href="mailto:hello@oddhouse.media" data-brief-mail>or send the brief by email <span class="link__arrow" aria-hidden="true">→</span></a>
+            </div>
+          </div>
+
+          <dl class="details">
+            <div>
+              <dt class="label">email</dt>
+              <dd>
+                <a href="mailto:hello@oddhouse.media" data-email>hello@oddhouse.media</a>
+                <button class="copy label" type="button" data-copy="hello@oddhouse.media">copy</button>
+              </dd>
+            </div>
+            <div>
+              <dt class="label">based in</dt>
+              <dd>Metro Manila, PH</dd>
+            </div>
+            <div>
+              <dt class="label">right now</dt>
+              <dd data-clock>Manila time, UTC+8</dd>
+            </div>
+            <!-- SOCIALS: add the real URLs, then delete the "hidden" attribute on this block. -->
+            <div hidden>
+              <dt class="label">elsewhere</dt>
+              <dd class="socials">
+                <a href="https://www.instagram.com/" rel="noopener">Instagram</a>
+                <a href="https://www.linkedin.com/" rel="noopener">LinkedIn</a>
+                <a href="https://www.behance.net/" rel="noopener">Behance</a>
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+
+    </section>
   </main>
 
-  <footer class="foot">
-    <div>
-      <p class="note">We're still putting up the walls. Back soon.</p>
-      <a class="follow" href="https://www.instagram.com/oddhousemedia/" target="_blank" rel="noopener">Follow the build on Instagram</a>
+  <!-- ============================================================ FOOTER -->
+  <footer class="foot" data-tone="ink" data-page="stay odd">
+    <!-- The sticker sheet, scattered, under an ink vignette so the words stay easy to read. -->
+    <div class="foot__stickers" aria-hidden="true">
+      <img src="assets/stickers/05-stay-odd.svg" alt="" loading="lazy" style="left:1.9%;top:4.3%;width:11.1rem;rotate:-4deg">
+      <img src="assets/stickers/10-after-dark.svg" alt="" loading="lazy" style="left:19.5%;top:7.7%;width:10.3rem;rotate:1deg">
+      <img src="assets/stickers/11-loud-quietly.svg" alt="" loading="lazy" style="left:35.9%;top:10.4%;width:10.4rem;rotate:6deg">
+      <img src="assets/stickers/07-side-eye.svg" alt="" loading="lazy" style="left:48.8%;top:8.7%;width:9.0rem;rotate:12deg">
+      <img src="assets/stickers/16-not-for-everyone.svg" alt="" loading="lazy" style="left:65.5%;top:-5.0%;width:8.4rem;rotate:-15deg">
+      <img src="assets/stickers/06-shook.svg" alt="" loading="lazy" style="left:90.0%;top:3.3%;width:8.3rem;rotate:11deg">
+      <img src="assets/stickers/18-weird-works.svg" alt="" loading="lazy" style="left:4.1%;top:36.7%;width:7.6rem;rotate:7deg">
+      <img src="assets/stickers/09-certified-odd.svg" alt="" loading="lazy" style="left:16.1%;top:42.5%;width:9.3rem;rotate:3deg">
+      <img src="assets/stickers/14-normal-is-a-rumour.svg" alt="" loading="lazy" style="left:35.7%;top:37.0%;width:10.9rem;rotate:-3deg">
+      <img src="assets/stickers/15-we-see-you.svg" alt="" loading="lazy" style="left:49.4%;top:37.8%;width:9.6rem;rotate:-7deg">
+      <img src="assets/stickers/02-seal.svg" alt="" loading="lazy" style="left:68.0%;top:38.6%;width:9.5rem;rotate:4deg">
+      <img src="assets/stickers/01-logo.svg" alt="" loading="lazy" style="left:84.1%;top:33.4%;width:8.6rem;rotate:6deg">
+      <img src="assets/stickers/17-odd-house.svg" alt="" loading="lazy" style="left:6.1%;top:75.4%;width:11.2rem;rotate:2deg">
+      <img src="assets/stickers/04-big-idea.svg" alt="" loading="lazy" style="left:18.0%;top:76.3%;width:8.7rem;rotate:-10deg">
+      <img src="assets/stickers/03-out-and-about.svg" alt="" loading="lazy" style="left:31.5%;top:64.6%;width:8.7rem;rotate:7deg">
+      <img src="assets/stickers/13-in-the-zone.svg" alt="" loading="lazy" style="left:52.0%;top:71.8%;width:8.0rem;rotate:16deg">
+      <img src="assets/stickers/12-boo.svg" alt="" loading="lazy" style="left:72.9%;top:60.5%;width:11.4rem;rotate:-12deg">
+      <img src="assets/stickers/08-off-hours.svg" alt="" loading="lazy" style="left:82.2%;top:74.3%;width:9.0rem;rotate:12deg">
     </div>
-    <div class="small label">
-      Creative marketing agency<br>2026
+    <div class="foot__shade" aria-hidden="true"></div>
+    <div class="wrap foot__inner">
+      <div class="foot__main">
+        <div class="foot__left">
+          <a class="foot__logo" href="#house" aria-label="Odd House, back to top">
+            <svg viewBox="0 0 880 248.94" aria-hidden="true"><use href="assets/brand/sprite.svg#lockup-h"/></svg>
+          </a>
+          <nav class="foot__nav" aria-label="Footer">
+            <a href="#house">the house.</a>
+            <a href="#work">the works.</a>
+            <a href="#make">the service.</a>
+            <a href="#how">the process.</a>
+            <a href="#contact">book a call.</a>
+          </nav>
+          <div class="foot__contact">
+            <a href="mailto:hello@oddhouse.media">hello@oddhouse.media</a>
+            <span>Metro Manila, PH</span>
+          </div>
+        </div>
+        <p class="foot__stay display" data-split>stay odd.</p>
+      </div>
+
+      <p class="foot__bar label">
+        <span>© <span data-year>2026</span> odd house <span class="gap">creative marketing agency</span></span>
+        <span>odd on purpose.</span>
+      </p>
     </div>
   </footer>
-</div>
 
-<script>
-// Teaser video: always muted. If it can't play, the page keeps its plain background.
-(function () {
-  var v = document.getElementById('teaser');
-  if (!v) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { v.remove(); return; }
-  var root = document.documentElement;
-  root.classList.add('video-on');
-  function fail() { root.classList.remove('has-video', 'video-on'); v.remove(); }
-  v.muted = true;
-  v.defaultMuted = true;
-  v.volume = 0;
-  v.addEventListener('volumechange', function () { if (!v.muted) v.muted = true; });
-  v.addEventListener('playing', function () { root.classList.add('has-video'); });
-  v.addEventListener('error', fail);
-  var p = v.play();
-  if (p && p.catch) p.catch(fail);
-})();
-</script>
+  <!-- ============================================================ SAYINGS (the very bottom of the page) -->
+  <div class="sayings" data-tone="paper" aria-hidden="true">
+    <div class="sayings__track">
+      <span>stay odd.</span><i></i><span>normal is a rumour.</span><i></i><span>weird works.</span><i></i><span>we see you.</span><i></i><span>not for everyone.</span><i></i>
+      <span>stay odd.</span><i></i><span>normal is a rumour.</span><i></i><span>weird works.</span><i></i><span>we see you.</span><i></i><span>not for everyone.</span><i></i>
+    </div>
+  </div>
 
+
+  <!-- ============================================================ CASE SHEETS
+       One <template> per project. The button's data-case matches the template's id. -->
+  <dialog class="sheet" data-sheet aria-labelledby="sheet-title">
+    <div class="sheet__bar">
+      <p class="label"><span>odd house <span class="gap">the work</span></span></p>
+      <button class="stick stick--close" type="button" data-sheet-close>close.</button>
+    </div>
+    <div class="sheet__body" data-sheet-body></div>
+  </dialog>
+
+  <template id="case-odd-house">
+    <div class="sheet__intro">
+      <p class="label">in-house <span class="gap">2026</span></p>
+      <h2 class="display sheet__title" id="sheet-title">odd house.</h2>
+      <p class="sheet__lede">Before we made anything for anyone else, we had to move in. The identity is a house with two windows that look back: half-lidded, a little unimpressed, always paying attention.</p>
+      <p>Two colours, one face for the logo, and a mascot with moods for everything else.</p>
+      <dl class="spec spec--sheet">
+        <div><dt>scope</dt><dd>identity, mascot, stickers, stationery, guidelines</dd></div>
+        <div><dt>palette</dt><dd>ink #141413 and paper #FFFBEF. nothing else.</dd></div>
+        <div><dt>type</dt><dd>polymath display, instrument sans, geist mono</dd></div>
+        <div><dt>made</dt><dd>logo suite, 10 moods, 18 stickers, 3 card fronts, 18-page brand book</dd></div>
+      </dl>
+    </div>
+    <div class="sheet__gallery">
+      <figure class="frame">
+        <picture><source type="image/avif" srcset="assets/img/cards-dark-1800.avif"><img src="assets/img/cards-dark-1800.jpg" width="1800" height="1344" alt="Odd House business cards on a dark ribbed surface" loading="lazy"></picture>
+        <figcaption class="label">business cards <span class="gap">400 gsm uncoated</span></figcaption>
+      </figure>
+      <figure class="frame frame--half">
+        <picture><source type="image/avif" srcset="assets/img/card-in-hand-1200.avif"><img src="assets/img/card-in-hand-1200.jpg" width="1200" height="1543" alt="A hand holding an Odd House business card in a strip of light" loading="lazy"></picture>
+        <figcaption class="label">the peek <span class="gap">front b</span></figcaption>
+      </figure>
+      <figure class="frame frame--half">
+        <picture><source type="image/avif" srcset="assets/img/stickers-street-1200.avif"><img src="assets/img/stickers-street-1200.jpg" width="1200" height="1500" alt="House stickers on a street utility box at night" loading="lazy"></picture>
+        <figcaption class="label">stickers <span class="gap">out at night</span></figcaption>
+      </figure>
+      <figure class="frame">
+        <picture><source type="image/avif" srcset="assets/img/stickers-notebook-1800.avif"><img src="assets/img/stickers-notebook-1800.jpg" width="1800" height="1207" alt="Two house mascot stickers on a black notebook" loading="lazy"></picture>
+        <figcaption class="label">stickers <span class="gap">die-cut vinyl, matte</span></figcaption>
+      </figure>
+      <figure class="frame frame--half">
+        <picture><source type="image/avif" srcset="assets/img/stickers-laptop-1200.avif"><img src="assets/img/stickers-laptop-1200.jpg" width="1200" height="1500" alt="House stickers on a laptop lid" loading="lazy"></picture>
+        <figcaption class="label">stickers <span class="gap">at work</span></figcaption>
+      </figure>
+      <figure class="frame frame--half frame--art">
+        <img src="assets/stickers/07-side-eye.svg" width="190" height="198" alt="Side-eye mascot sticker" loading="lazy">
+        <figcaption class="label">side-eye <span class="gap">mood 01 of 10</span></figcaption>
+      </figure>
+      <figure class="frame">
+        <picture><source type="image/avif" srcset="assets/img/guidelines-book-1800.avif"><img src="assets/img/guidelines-book-1800.jpg" width="1800" height="1350" alt="The printed Odd House brand guidelines" loading="lazy"></picture>
+        <figcaption class="label">brand guidelines <span class="gap">vol. 01, 18 pages</span></figcaption>
+      </figure>
+    </div>
+  </template>
+
+  <template id="case-almost-speedy">
+    <div class="sheet__intro">
+      <p class="label">identity <span class="gap">2024 and 2025</span></p>
+      <h2 class="display sheet__title" id="sheet-title">almost speedy.</h2>
+      <p class="sheet__lede">A Manila run club that needed to look like one thing everywhere it showed up: on the road, on a poster, on a tee.</p>
+      <p>The wordmark, the mark, weekly run posts, event posters, pacer tags and merch, all built as one system.</p>
+      <dl class="spec spec--sheet">
+        <div><dt>client</dt><dd>Almost Speedy Run Club</dd></div>
+        <div><dt>scope</dt><dd>run club identity, posters, pacer tags, merch</dd></div>
+        <div><dt>year</dt><dd>2024 and 2025</dd></div>
+        <div><dt>by</dt><dd>paul osio, creative lead</dd></div>
+      </dl>
+    </div>
+    <div class="sheet__gallery">
+      <figure class="frame">
+        <picture><img src="assets/img/almost-speedy.webp" width="1920" height="1080" alt="Almost Speedy wordmark on its signature gradient" loading="lazy"></picture>
+        <figcaption class="label">wordmark <span class="gap">the signature look</span></figcaption>
+      </figure>
+      <figure class="frame">
+        <picture><img src="assets/img/as-story.webp" width="1600" height="900" alt="Almost Speedy brand story spread" loading="lazy"></picture>
+        <figcaption class="label">brand story <span class="gap">spread</span></figcaption>
+      </figure>
+      <figure class="frame">
+        <picture><img src="assets/img/as-poster.webp" width="1600" height="900" alt="Weekly run poster for Wednesdays at Mall of Asia" loading="lazy"></picture>
+        <figcaption class="label">weekly run poster <span class="gap">every wednesday</span></figcaption>
+      </figure>
+      <figure class="frame">
+        <picture><img src="assets/img/as-pacer.webp" width="1600" height="900" alt="Almost Speedy pacer tag" loading="lazy"></picture>
+        <figcaption class="label">pacer tag <span class="gap">run day</span></figcaption>
+      </figure>
+      <figure class="frame">
+        <picture><img src="assets/img/as-merch-front.webp" width="1600" height="900" alt="The Unbreaking tee, front" loading="lazy"></picture>
+        <figcaption class="label">merch <span class="gap">the unbreaking tee</span></figcaption>
+      </figure>
+      <figure class="frame">
+        <picture><img src="assets/img/as-community.webp" width="1920" height="1080" alt="Almost Speedy community run day" loading="lazy"></picture>
+        <figcaption class="label">community <span class="gap">run day</span></figcaption>
+      </figure>
+    </div>
+  </template>
+
+  <template id="case-detroit-slice">
+    <div class="sheet__intro">
+      <p class="label">social <span class="gap">2026</span></p>
+      <h2 class="display sheet__title" id="sheet-title">the detroit slice.</h2>
+      <p class="sheet__lede">Square, airy and crispy at the edges. The job: explain a pizza most of Macclesfield had never tried, and make them want it tonight.</p>
+      <p>The brand identity is the restaurant’s own. The socials are made inside it: numbered jobs, carousels, stories, paid statics and reels.</p>
+      <dl class="spec spec--sheet">
+        <div><dt>client</dt><dd>The Detroit Slice</dd></div>
+        <div><dt>scope</dt><dd>40+ social jobs: carousels, stories, paid statics, reels</dd></div>
+        <div><dt>year</dt><dd>2026</dd></div>
+        <div><dt>by</dt><dd>paul osio, social designer and video editor, with hyperpath</dd></div>
+      </dl>
+    </div>
+    <div class="sheet__gallery">
+      <figure class="frame frame--half">
+        <picture><img src="assets/img/tds-deepdish.webp" width="900" height="1125" alt="Carousel cover: Deep dish? Naaah!" loading="lazy"></picture>
+        <figcaption class="label">carousel <span class="gap">deep dish? naaah!</span></figcaption>
+      </figure>
+      <figure class="frame frame--half">
+        <picture><img src="assets/img/tds-whysquare.webp" width="900" height="1125" alt="Carousel cover: Why square?" loading="lazy"></picture>
+        <figcaption class="label">carousel <span class="gap">why square?</span></figcaption>
+      </figure>
+      <figure class="frame frame--half">
+        <picture><img src="assets/img/tds-airy.webp" width="900" height="1125" alt="Carousel cover: Thick. Airy." loading="lazy"></picture>
+        <figcaption class="label">carousel <span class="gap">thick. airy.</span></figcaption>
+      </figure>
+      <figure class="frame frame--half">
+        <picture><img src="assets/img/tds-prep.webp" width="720" height="1280" alt="Story: Fresh dough. Hot pans. No shortcuts." loading="lazy"></picture>
+        <figcaption class="label">story <span class="gap">fresh dough</span></figcaption>
+      </figure>
+      <figure class="frame frame--half">
+        <picture><img src="assets/img/tds-verdict.webp" width="720" height="1280" alt="Story: This or that? Detroit-style vs thin crust" loading="lazy"></picture>
+        <figcaption class="label">story <span class="gap">this or that?</span></figcaption>
+      </figure>
+      <figure class="frame frame--half">
+        <picture><img src="assets/img/tds-certificate.webp" width="720" height="1280" alt="Story: Certificate of corner ownership" loading="lazy"></picture>
+        <figcaption class="label">story <span class="gap">corner ownership</span></figcaption>
+      </figure>
+    </div>
+  </template>
+
+  <!-- INTRO START --><script src="assets/js/intro.js" defer></script><!-- INTRO END -->
+  <script src="assets/js/main.js" defer></script>
 </body>
 </html>

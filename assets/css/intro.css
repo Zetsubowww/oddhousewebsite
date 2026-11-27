@@ -1,0 +1,64 @@
+/* ==========================================================================
+   THE INTRO. Two seconds with one character and its line: the live house from
+   Migo Website's front door, or one of its moods, picked fresh each visit. Only shown while <html> has
+   .is-intro (set in the head script, once per browser session). Delete this
+   file, intro.js and the INTRO blocks in index.html to remove it.
+   ========================================================================== */
+
+.intro {
+  position: fixed; inset: 0; z-index: 95;
+  display: none; place-items: center;
+  padding: max(1.5rem, env(safe-area-inset-top)) var(--gutter) max(1.5rem, env(safe-area-inset-bottom));
+  background: var(--paper); color: var(--ink);
+  overflow: hidden;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+html.is-intro .intro { display: grid; }
+/* the whole screen is the skip button, so it takes focus without drawing a box */
+.intro:focus, .intro:focus-visible { outline: none; }
+
+.intro__mid { display: grid; place-items: center; gap: clamp(1rem, 3svh, 2rem); }
+
+/* the house: the same art and eyes as the old door */
+.intro__house {
+  --W: min(60vw, 44svh, 26rem);
+  position: relative; width: var(--W);
+  color: var(--ink);
+  transform-origin: 50% 100%;
+}
+.intro__house > svg { display: block; width: 100%; height: auto; overflow: visible; scale: 0.85; transform-origin: 50% 100%; }
+/* until the chosen character is ready, nothing shows; then the character pops in (intro.js) and its line fades in */
+.intro.is-loading .intro__house, .intro.is-loading .intro__hint { opacity: 0; }
+.intro__hint { transition: opacity 0.25s ease 0.12s; }
+
+/* the eyes: the logo almonds, paper with an ink lens for a pupil */
+.ge__white { fill: var(--paper); }
+.ge__pupil { fill: var(--ink); }
+.ge__lid { transition: opacity 0.12s; }
+.ge__happy { fill: none; stroke: var(--paper); stroke-width: 10; stroke-linecap: round; opacity: 0; transition: opacity 0.12s; }
+[data-intro-svg][data-mood="happy"] .ge__lid { opacity: 0; }
+[data-intro-svg][data-mood="happy"] .ge__happy { opacity: 1; }
+.intro.is-giggling .intro__house > svg { animation: intro-giggle 0.2s ease-in-out infinite alternate; }
+@keyframes intro-giggle { from { rotate: -2.2deg; translate: -0.8% 0; } to { rotate: 2.2deg; translate: 0.8% -1.6%; } }
+
+/* the moods: placed over the house exactly as on the old door */
+.intro__mood { position: absolute; left: 50%; bottom: var(--b, 0); width: var(--w, 100%); translate: var(--tx, -50%) 0; transform-origin: 50% 100%; pointer-events: none; }
+.intro__mood[hidden] { display: none; }
+.intro__mood[data-mood="in-the-zone"] { --w: calc(var(--W) * 1.2931); --b: calc(var(--W) * -0.0289); --tx: calc(-50% + var(--W) * 0.0087); }
+.intro__mood[data-mood="big-idea"] { --w: calc(var(--W) * 1.2463); --b: calc(var(--W) * -0.0375); --tx: calc(-50% + var(--W) * 0.1107); }
+.intro__mood[data-mood="off-hours"] { --w: calc(var(--W) * 1.0446); --b: calc(var(--W) * -0.0274); --tx: calc(-50% + var(--W) * 0.0335); }
+.intro__mood[data-mood="boo"] { --w: calc(var(--W) * 1.3425); --b: calc(var(--W) * -0.0324); --tx: calc(-50% + var(--W) * -0.0004); }
+
+/* the line under it, as on the old door */
+.intro__hint { margin: 0 0 0 -0.04em; font-size: clamp(1.6rem, 4.2vw, 3.4rem); line-height: 1; text-align: center; }
+
+/* the way out: the paper closes into a dot, then the site is there */
+.intro.is-leaving { animation: intro-out 0.45s cubic-bezier(0.3, 0, 0.75, 0.6) forwards; pointer-events: none; }
+@keyframes intro-out {
+  0% { clip-path: circle(71vmax at 50% 50%); }   /* just past the corners, so the close shows from the first frame */
+  100% { clip-path: circle(0 at 50% 50%); }
+}
+
+/* the header stickers wait for the intro, so they still slap on when you arrive */
+html.is-intro .top > *, html.is-intro .top__right > *, html.is-intro .eyestick { animation-play-state: paused; }
