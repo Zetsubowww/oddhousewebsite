@@ -563,6 +563,67 @@
     tone();
   }
 
+  /* --------------------------------------------------------- the services: media behind the halves
+     Desktop: hovering one half fills the OTHER half (design -> sticker slideshow
+     on the content side; content -> the reel on the design side).
+     Phones and tablets: each half always has its own background, playing only on screen. */
+  const halves = { content: $('[data-half="content"]'), design: $('[data-half="design"]') };
+  if (halves.content && halves.design) {
+    const deskMq = matchMedia('(hover: hover) and (min-width: 56.25em)');
+    const shows = new Map();   // slideshow box -> timer
+    const startSlides = (box) => {
+      if (!box || shows.has(box) || reduced()) return;
+      const imgs = Array.from(box.querySelectorAll('img'));
+      let i = imgs.findIndex((im) => im.classList.contains('is-on'));
+      shows.set(box, setInterval(() => {
+        imgs[i].classList.remove('is-on'); i = (i + 1) % imgs.length; imgs[i].classList.add('is-on');
+      }, 2200));
+    };
+    const stopSlides = (box) => { if (box && shows.has(box)) { clearInterval(shows.get(box)); shows.delete(box); } };
+    const playVideo = (v) => { if (!v || reduced()) return; if (v.preload !== 'auto') v.preload = 'auto'; const p = v.play(); if (p && p.catch) p.catch(() => {}); };
+    const stopVideo = (v) => { if (v && !v.paused) v.pause(); };
+    const media = (half, kind, where) => $(`.split__media--${kind}.split__media--${where}`, half);
+    const slidesOf = (half, where) => media(half, 'slides', where);
+    const videoOf = (half, where) => { const box = media(half, 'video', where); return box && $('video', box); };
+
+    // desktop hover
+    const enter = (who) => {
+      if (!deskMq.matches) return;
+      const other = who === 'design' ? halves.content : halves.design;
+      other.classList.add('is-media');
+      if (who === 'design') startSlides(slidesOf(other, 'desk')); else playVideo(videoOf(other, 'desk'));
+    };
+    const leave = (who) => {
+      if (!deskMq.matches) return;
+      const other = who === 'design' ? halves.content : halves.design;
+      other.classList.remove('is-media');
+      if (who === 'design') stopSlides(slidesOf(other, 'desk')); else stopVideo(videoOf(other, 'desk'));
+    };
+    ['content', 'design'].forEach((who) => {
+      halves[who].addEventListener('pointerenter', () => enter(who));
+      halves[who].addEventListener('pointerleave', () => leave(who));
+    });
+
+    // phones and tablets: each half's own background, only while it's on screen
+    const phoneRun = (half, on) => {
+      if (half === halves.design) { on ? startSlides(slidesOf(half, 'phone')) : stopSlides(slidesOf(half, 'phone')); }
+      else { on ? playVideo(videoOf(half, 'phone')) : stopVideo(videoOf(half, 'phone')); }
+    };
+    let phoneIo = null;
+    const setMode = () => {
+      [halves.content, halves.design].forEach((h) => h.classList.remove('is-media'));
+      shows.forEach((t) => clearInterval(t)); shows.clear();
+      document.querySelectorAll('[data-split-video]').forEach(stopVideo);
+      if (phoneIo) { phoneIo.disconnect(); phoneIo = null; }
+      if (!deskMq.matches && 'IntersectionObserver' in window) {
+        phoneIo = new IntersectionObserver((es) => es.forEach((e) => phoneRun(e.target, e.isIntersecting)), { threshold: 0.15 });
+        phoneIo.observe(halves.content); phoneIo.observe(halves.design);
+      }
+    };
+    setMode();
+    deskMq.addEventListener('change', setMode);
+  }
+
   const year = $('[data-year]');
   if (year) year.textContent = String(new Date().getFullYear());
 })();
